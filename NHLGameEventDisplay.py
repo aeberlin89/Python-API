@@ -16,7 +16,11 @@ response = requests.get("https://statsapi.web.nhl.com/api/v1/game/2019020864/fee
 eventlog = response.json()
 gameData = eventlog['gameData']
 players = gameData['players']
+
+#keys in 'players' dict are unknown ID numbers, and their value contains the info needed
+#so playerData is created as a list containing dicts with that info
 playerData = players.values()
+
 
 homeTeamId = gameData['teams']['home']['id']
 awayTeamId = gameData['teams']['away']['id']
@@ -67,6 +71,36 @@ vanRos = { 8470626 : 'Loui Eriksson',
             8474291: 'Jay Beagle',
             8474091: 'Brandon Sutter',
 }
+
+#dictionary of team id keys
+#to access team roster statsapi.web.nhl.com/api/v1/teams/ + 'teamId' + /roster
+teamId = {
+    1: 'NJD', 2: 'NYI', 3: 'NYR', 4: 'PHI', 5: 'PIT', 6: 'BOS',
+    7: 'BUF', 8: 'MTL', 9: 'OTT', 10: 'TOR', 12: 'CAR', 13: 'FLA',
+    14: 'TBL', 15: 'WAS', 16: 'CHI', 17: 'DET', 18: 'NSH', 19: 'STL',
+    20: 'CGY', 21: 'COL', 22: 'EDM', 23: 'VAN', 24: 'ANA', 25: 'DAL',
+    26: 'LAK', 28: 'SJS', 29: 'CBJ', 30: 'MIN', 52: 'WPG', 53: 'ARI', 54: 'VGK'
+}
+
+hTeam = str(54)
+
+#create strings to plug in current teams
+homeURL = "https://statsapi.web.nhl.com/api/v1/teams/" + hTeam + "/roster"
+
+
+homeTeam = requests.get(homeURL).json()
+homRos = {}
+
+
+for spot in homeTeam['roster']:
+    playerID = spot['person']['id']
+    playerFullName = spot['person']['fullName']
+    homRos[playerID] = playerFullName
+jprint(homRos)
+
+
+
+
 
 #strip the 0's in the players' numbers
 homeRoster = map(lambda each:each.strip("0"), homeRoster)
@@ -128,10 +162,12 @@ while True:
     boxScore = eventlog['liveData']['boxscore']
     homeOnIceId = boxScore['teams']['home']['onIce']
     awayOnIceId = boxScore['teams']['away']['onIce']
-
+    newOnIce = []
     #store on ice names in a string using roster dictionaries with player id's fetched above
     # ***** need to change the indeces below, currently throws error when team is shorthanded due to list having length of 5 (instead of 6 at 5v5)
-    newOnIce = [vanRos[onIceId[0]], vanRos[onIceId[1]], vanRos[onIceId[2]], vanRos[onIceId[3]], vanRos[onIceId[4]], vanRos[onIceId[5]]]
+    for i in range(0,len(homeOnIceId)):
+        newOnIce.append(vanRos[homeOnIceId[i]])
+    #newOnIce = [vanRos[homeOnIceId[0]], vanRos[homeOnIceId[1]], vanRos[homeOnIceId[2]], vanRos[homeOnIceId[3]], vanRos[homeOnIceId[4]], vanRos[homeOnIceId[5]]]
     if onIce != newOnIce:
         print(newOnIce)
     else:
