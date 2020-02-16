@@ -87,20 +87,14 @@ hTeam = str(54)
 #create strings to plug in current teams
 homeURL = "https://statsapi.web.nhl.com/api/v1/teams/" + hTeam + "/roster"
 
-
 homeTeam = requests.get(homeURL).json()
 homRos = {}
-
 
 for spot in homeTeam['roster']:
     playerID = spot['person']['id']
     playerFullName = spot['person']['fullName']
     homRos[playerID] = playerFullName
 jprint(homRos)
-
-
-
-
 
 #strip the 0's in the players' numbers
 #homeRoster = map(lambda each:each.strip("0"), homeRoster)

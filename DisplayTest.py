@@ -59,6 +59,7 @@ label5.grid(row=4, sticky='w')
 #ScoreBoard
 frameMiddle = Frame(root, width=500, height=300, bg='black')
 frameMiddle.grid(row=1, column=1)
+frameMiddle.bind("<1>", callback)
 
 
 #Test
