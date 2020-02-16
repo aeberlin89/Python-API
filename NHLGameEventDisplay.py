@@ -103,8 +103,8 @@ jprint(homRos)
 
 
 #strip the 0's in the players' numbers
-homeRoster = map(lambda each:each.strip("0"), homeRoster)
-awayRoster = map(lambda each:each.strip("0"), awayRoster)
+#homeRoster = map(lambda each:each.strip("0"), homeRoster)
+#awayRoster = map(lambda each:each.strip("0"), awayRoster)
 
 #print each team's active roster for the game
 jprint(homeRoster)
@@ -163,6 +163,11 @@ while True:
     homeOnIceId = boxScore['teams']['home']['onIce']
     awayOnIceId = boxScore['teams']['away']['onIce']
     newOnIce = []
+
+
+    #for i in range(0,len(homeOnIceId)):
+
+
     #store on ice names in a string using roster dictionaries with player id's fetched above
     # ***** need to change the indeces below, currently throws error when team is shorthanded due to list having length of 5 (instead of 6 at 5v5)
     for i in range(0,len(homeOnIceId)):
