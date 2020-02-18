@@ -25,19 +25,17 @@ def GET_GAME_LIST(game_dict):
         game_dict[gameId] = status + '\n\n' + TEAM_ID[awayTeamId] + '\n' + TEAM_ID[homeTeamId]
         #empty_list.append(status + '\n\n' + TEAM_ID[awayTeamId] + '\n' + TEAM_ID[homeTeamId])
 
-def getGameListID(game_dict):
-    list = []
-    for key in game_dict.keys():
-        list.append(key)
-    return list
+
 
 #create empty list for passing into GET_GAME_LIST function
 gameDict = {}
 GET_GAME_LIST(gameDict)
 
 gameList = []
+gameIdList = []
 for key in gameDict:
     gameList.append(gameDict[key])
+    gameIdList.append(key)
 
 
 #set initial GAME_ID to first gameID in the list
@@ -49,9 +47,15 @@ def SET_GAME_ID(eff=None, id=0):
     GAME_ID = id
     print(GAME_ID)
 
+def setGameId(eff=None, gameDict=0):
+    print(gameDict)
+
+
 #create frame for displaying today's games in grid form
 frameTop = Frame(root)
-frameTop.grid(columnspan=len(gameList), sticky='n')
+frameTop.grid(row=0,columnspan=len(gameList), sticky='n')
+frameTopLeft = Frame(root, bg='black')
+frameTopLeft.grid(row=0,sticky='w')
 
 #create empty list for storing labels
 gameLabels = []
@@ -71,29 +75,68 @@ for game in gameDict:
     print(id)
     i = i+1
 
-gameListID = getGameListID(gameDict)
+activeGame = gameList[0]
 
-i = 0
-for i in range(0, len(gameListID)):
-    gameLabels[i].bind("<1>",lambda eff: SET_GAME_ID(eff,gameListID[i]))
+frameLeft = Frame(root)
+frameLeft.grid(row=1, column=0)
+labelLeft = []
+for i in range(0,5):
+    l = Label(frameLeft,text='Player'+str(i+1))
+    labelLeft.append(l)
+    labelLeft[i].grid(row=(i))
 
-print(gameListID)
 
+frameMiddle = Frame(root, width=500, height=300, bg='black')
+frameMiddle.grid(row=1, column=1)
+scoreboardLabel = Label(frameMiddle, text=activeGame, bg='black', fg='white', width=80, height=15)
+scoreboardLabel.grid()
+
+
+frameRight = Frame(root)
+frameRight.grid(row=1, column=2)
+labelRight = []
+for i in range(0,5):
+    l = Label(frameRight,text='Player'+str(i+1))
+    labelRight.append(l)
+    labelRight[i].grid(row=(i))
 
 
 #what's happening right now is the variable 'id' in the loop above is being used to set the gameId
 #the problem is by the time the program is running, the loop is finished and 'id' is set to the final gameID in the List
 #need to figure out a way to return the id of the label that is being clicked
+#i = 0
+#for key in gameDict:
+#    id = key
+#    gameLabels[i].bind("<1>", lambda eff: setGameId(eff,key))
+#    print("setting label id to " + str(key))
+#    time.sleep(0.5)
+#    i = i+1
 
 
+gameLabels[0].bind("<1>", lambda eff: SET_GAME_ID(eff,1))
+gameLabels[1].bind("<1>", lambda eff: SET_GAME_ID(eff,2))
+#gameLabels[2].bind("<1>", setGameId(gameDict))
 
+
+def test(num):
+    print(num)
+
+#def setScoreboard(num):
+
+
+for i in range(0, len(gameDict)):
+    gameLabels[i].bind("<1>", test(gameIdList[i]))
+
+i = 0
+for game in gameDict:
+    print(game)
+    print(gameIdList[i])
+    i = i+1
 
 
 #create callback function to display game of clicked label
 #if a label is clicked, the game id will be returned to a current game id variable
 #this variable will be used to display game information on the scoreboard
-
-
 
 
 
