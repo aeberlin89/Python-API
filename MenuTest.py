@@ -28,7 +28,6 @@ frame.grid()
 aboutWindow = Toplevel()
 aboutWindow.title('About')
 
-
 #create menu objects for each window and assign each window a menu
 mainMenu = Menu(root)
 aboutMenu = Menu(root)
