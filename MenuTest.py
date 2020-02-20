@@ -23,7 +23,6 @@ root.title('Menu Testing')
 frame = Frame(root, width=500, height=300, bg='black')
 frame.grid()
 
-
 #create new window
 aboutWindow = Toplevel()
 aboutWindow.title('About')
