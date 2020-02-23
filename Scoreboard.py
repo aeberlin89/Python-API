@@ -83,25 +83,25 @@ mainBackgroundFrame = Frame(root)
 mainBackgroundFrame.pack()
 
 frameLeft = Frame(mainBackgroundFrame)
-frameLeft.grid(row=1, column=0)
+frameLeft.grid(row=1, column=0, padx=10)
 labelLeft = []
 for i in range(0,5):
-    l = Label(frameLeft,padx=20,relief=RAISED,bd=4,text='Player'+str(i+1))
+    l = Label(frameLeft,padx=20,relief=SUNKEN,bd=1,text='Player'+str(i+1))
     labelLeft.append(l)
     labelLeft[i].grid(row=(i))
 
 
-frameMiddle = Frame(mainBackgroundFrame, width=1200, height=600, bg='black')
+frameMiddle = Frame(mainBackgroundFrame, width=1200, height=600)
 frameMiddle.grid(row=1, column=1)
 scoreboardLabel = Label(frameMiddle, text=activeGame, font=('Helvetica', 30), bg='black', fg='yellow', width=66, height=15)
 scoreboardLabel.grid()
 
 
 frameRight = Frame(mainBackgroundFrame)
-frameRight.grid(row=1, column=2)
+frameRight.grid(row=1, column=2, padx=10)
 labelRight = []
 for i in range(0,5):
-    l = Label(frameRight,padx=10,relief=GROOVE,text='Player'+str(i+1))
+    l = Label(frameRight,padx=20,relief=SUNKEN,bd=1,text='Player'+str(i+1))
     labelRight.append(l)
     labelRight[i].grid(row=(i))
 
