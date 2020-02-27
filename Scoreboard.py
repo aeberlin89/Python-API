@@ -77,6 +77,7 @@ for game in gameDict:
     print(id)
     i = i+1
 
+
 activeGame = gameList[0]
 
 mainBackgroundFrame = Frame(root)
@@ -104,6 +105,7 @@ for i in range(0,5):
     l = Label(frameRight,padx=20,relief=SUNKEN,bd=1,text='Player'+str(i+1))
     labelRight.append(l)
     labelRight[i].grid(row=(i))
+
 
 
 #what's happening right now is the variable 'id' in the loop above is being used to set the gameId
